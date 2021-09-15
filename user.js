@@ -1,18 +1,11 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const controller = require('../controllers/usercontroller');
 
-const userSchema = new Schema({
-email: {
-        type: String
-       },
-name: String,
-gender: {
-        type: String,
-        enum: ['Male', 'Female', 'Other']
-    },
-mobile: String,
-image : String,
-   
-}, { timestamps: true });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = (app) =>{
+    const common = '/api/user/';
+    
+    app.post(`${common}create`, controller.postnewuser);
+    app.post(`${common}list`, controller.getuserById);
+    app.post(`${common}update`, controller.updateuser);
+    app.post(`${common}delete`, controller.deleteUser);
+}
